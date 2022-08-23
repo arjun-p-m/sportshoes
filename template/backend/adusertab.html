@@ -1,0 +1,42 @@
+{% extends 'backend/headfoot.html' %}
+{% block content %}
+<ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/1/">Home</a><i class="fa fa-angle-right"></i>Tabels</li>
+            </ol>
+<div class="agile-grids">	
+				<!-- tables -->
+				
+				<div class="agile-tables">
+					<div class="w3l-table-info">
+						<h2>USER</h2>
+						<div class=" register-top">
+						<table id="adtable" class="table" width="100%">
+						<thead>
+						<tr>
+							<th>id</th>
+							<th>fname</th>
+							<th>lname</th>
+							<th>email</th>
+							<th>phone</th>
+						</tr>
+						</thead>
+						{% for x in data %}
+						<tbody>
+						<tr>
+							<td>{{x.id}}</td>
+							<td>{{x.fname}}</td>
+							<td>{{x.lname}}</td>
+							<td>{{x.email}}</td>
+							<td>{{x.phone}}</td>
+						</tr>
+					</tbody>
+					{% endfor%}
+				</table>
+				</div>
+				<!-- //tables -->
+			</div>
+			<div class="inner-block">
+</div>
+<!--inner block end here-->
+<!--copy rights start here-->
+{% endblock %}

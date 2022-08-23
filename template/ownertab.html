@@ -1,0 +1,30 @@
+{% extends 'headerfooter.html' %}
+{% block content %}
+<div class="container">
+		<div class="register">
+		<h2>REGISTER</h2>		
+		<div class=" register-top">
+			<table class="table">
+				<tr>
+					<th>fname</th>
+					<th>lname</th>
+					<th>email</th>
+					<th>password</th>
+					<th>phone</th>
+				</tr>
+				{% for x in data %}
+				<tr>
+					<td>{{x.fname}}</td>
+					<td>{{x.lname}}</td>
+					<td>{{x.email}}</td>
+					<td>{{x.password}}</td>
+					<td>{{x.phone}}</td>
+					<td><a href="/editowner/?uid={{x.id}}"><span class="fa fa-pencil"></span></a></td>
+					<td><a href="/deleteowner/?uid={{x.id}}"><span class="fa fa-trash"></span></a></td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>		
+	</div>
+	</div>
+{% endblock %}

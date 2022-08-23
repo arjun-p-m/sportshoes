@@ -1,0 +1,26 @@
+{% extends 'headerfooter.html' %}
+{% block content %}
+<div class="container">
+		<div class="register">
+		<h2> PRODUCTS</h2>		
+		<div class=" register-top">
+			<table class="table">
+				<tr>
+					<th>name</th>
+					<th>price</th>
+					<th>image</th>
+				</tr>
+				{% for x in data %}
+				<tr>
+					<td>{{x.name}}</td>
+					<td>{{x.price}}</td>
+					<td><img src="{{x.image.url}}" width="100" height="100"></td>
+					<td><a href="/editproduct/?pid={{x.id}}"><span class="fa fa-pencil"></span></a></td>
+					<td><a href="/deleteproduct/?pid={{x.id}}"><span class="fa fa-trash"></span></a></td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>		
+	</div>
+	</div>
+{% endblock %}

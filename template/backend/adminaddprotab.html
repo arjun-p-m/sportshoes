@@ -1,0 +1,43 @@
+{% extends 'backend/headfoot.html' %}
+{% block content %}
+<ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/1/">Home</a><i class="fa fa-angle-right"></i>Tabels</li>
+            </ol>
+<div class="agile-grids">	
+				<!-- tables -->
+				
+				<div class="agile-tables">
+					<div class="w3l-table-info">
+						<h2>Products Added</h2>
+						<div class=" register-top">
+						<table id="adtable" class="table" width="100%">
+						<thead>
+						<tr>
+							<th>id</th>
+							<th>name</th>
+							<th>price</th>
+							<th>owner</th>
+							<th>image</th>
+							<th>status</th>
+						</tr>
+						</thead>
+						{% for x in data %}
+						<tbody>
+						<tr>
+							<td>{{x.id}}</td>
+							<td>{{x.name}}</td>
+							<td>{{x.price}}</td>
+							<td>{{x.owner.fname}}</td>
+							<td><img src="{{x.image.url}}" width="100" height="100"></td>
+							<td>{% if x.status == "0" %}<button type="submit" class="btn btn-primary" onclick="location.href='/proapproved/?pid={{x.id}}';">not approved</button>{% elif x.status == "1" %}<button type="submit" class="btn btn-success" onclick="location.href='/prorejected/?pid={{x.id}}';">approved</button>{% else %}<button type="submit" class="btn btn-danger">rejected</button>{% endif %}</td>
+							
+						</tr>
+					</tbody>
+					{% endfor%}
+				</table>
+			</div>
+		</div>
+		<div class="inner-block">
+			
+		</div>
+	{% endblock%}

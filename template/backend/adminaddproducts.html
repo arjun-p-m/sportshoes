@@ -1,0 +1,33 @@
+{% extends 'backend/headfoot.html' %}
+{% block content %}
+<div class="container">
+		<div class="register">
+		<h2>ADDPRODUCTS</h2>		
+		<div class=" register-top">
+			<form action="/adminaddproducts/" method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+			<div>
+				<p style="text-align: center;">{{msg}}</p>
+			</div>
+			<div> 	
+			<span>Name</span>
+			<input type="text" name="pName"> 
+			</div>
+			<div> 	
+				<span>Price</span>
+				<input type="number" name="pPrice"> 
+			</div>
+			<div> 	
+				<span>image</span>
+				<input type="file" name="pImage"> 
+			</div>
+			<!-- <div> 
+				<span >Password</span>
+				<input type="password" name="rPassword">
+			</div>	 -->			
+				<input type="submit" value="Add"> 
+			</form>
+		</div>		
+	</div>
+	</div>
+{% endblock %}

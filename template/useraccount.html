@@ -1,0 +1,44 @@
+{% extends 'headerfooter.html' %}
+{% block content %}
+<div class="container">
+		<div class="account">
+		<h2>Account</h2>
+		{% if request.session.userid %}
+		<div class="account-pass">
+		<div class="col-md-7 account-top">
+			{% for x in data %}
+			<form action="/useraccount/" method="POST">
+				{% csrf_token %}
+			<div>
+				<p style="text-align: center;">{{msg}}</p>
+			</div>
+			<div> 	
+			<span>User Name</span>
+			<input type="text" name="rFname" value="{{x.fname}}"> 
+			</div>
+			<div> 
+				<span >Password</span>
+				<input type="password" name="rPassword" value="{{x.password}}">
+			</div>				
+			<div class="rem-for-agile">
+				<a href="/usereditpassword/?usid={{x.id}}" style="color:#fff;padding: 7px 20px;background: #d2232a;">change password</a><br>
+			</div> 
+			</form>
+			{% endfor %}
+		</div>
+		<div class="col-md-5 left-account ">
+			<a href="/single/"><img class="img-responsive " src="/static/images/ac.png" alt=""></a>
+			<div class="five">
+			<h1>25% </h1><span>discount</span>
+			</div>
+			<a href="/register/" class="create">Create an account</a>
+<div class="clearfix"> </div>
+		</div>
+	<div class="clearfix"> </div>
+	</div>
+	{% endif %}
+	</div>
+
+</div>
+	<!---->
+{% endblock %}
