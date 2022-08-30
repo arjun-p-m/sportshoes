@@ -2,21 +2,55 @@
 {% block content %}
 <div class="product-grids">
 	<div class="container">
+		<h2 style="text-align: center;font-size: 45px;font-family: caveat;">Products</h2><br>
 	<div class="product-top">
 		{% for x in data %}
+		{% if request.session.myid %}
+		<div class="col-md-4 grid-product-in">	
+		<div class=" product-grid">	
+			<img class="img-responsive " src="{{x.image.url}}" style="object-fit: cover;width: 234px;height: 214px;" alt="">
+			<div class="shoe-in">
+				<h6>{{x.name}}</h6>
+				<!-- <label>$67.99</label> -->
+				<span class="money"><span><del>&#8377;2999</del></span><b>&#8377; {{x.price}}</b></span>
+				<!-- <a href="/single/?pid={{x.id}}" class="store">FIND A STORE</a> -->
+			</div>
+			
+			<b class="plus-on">+</b>
+		</div>
+		</div>
+		{% elif request.session.userid %}
+		<div class="col-md-4 grid-product-in">	
+		<div class=" product-grid">	
+			<a href="/single/?pid={{x.id}}"><img class="img-responsive " src="{{x.image.url}}" style="object-fit: cover;width: 234px;height: 214px;" alt=""></a>
+			<div class="shoe-in" style="float: left;">
+				<h6><a href="/single/?pid={{x.id}}"><b>{{x.name}}</b></a></h6>
+				<!-- <label>$67.99</label> -->
+				<h6><span><span><del>&#8377;2999</del></span><b>&#8377; {{x.price}}</b></span></h6>
+				<!-- <a href="/checkout/?pid={{x.id}}">place order</a> -->
+				<a href="/single/?pid={{x.id}}" class="store">FIND A STORE</a>
+			</div>
+			<div class="shoe-in" style="float: right;margin: 25px 25px;">
+				<a href="/feedback/?pid={{x.id}}" style="color:#fff;padding: 7px 20px;background: #d2232a;">Feedback</a><br>
+			</div>
+			<b class="plus-on">+</b>
+		</div>
+		</div>
+		{% else %}
 		<div class="col-md-4 grid-product-in">	
 		<div class=" product-grid">	
 			<a href="/single/?pid={{x.id}}"><img class="img-responsive " src="{{x.image.url}}" alt=""></a>
 			<div class="shoe-in">
-				<h6><a href="/single/?pid={{x.id}}">{{x.name}}</a></h6>
+				<h6><a href="/single/?pid={{x.id}}"><b>{{x.name}}</b></a></h6>
 				<!-- <label>$67.99</label> -->
-				<span class="money"><span><del>&#8377;2999</del></span>&#8377; {{x.price}}</span>
+				<span class="money"><span><del>&#8377;2999</del></span><b>&#8377; {{x.price}}</b></span>
 				<a href="/single/?pid={{x.id}}" class="store">FIND A STORE</a>
 			</div>
 			
 			<b class="plus-on">+</b>
 		</div>
 		</div>
+		{% endif %}
 		{% endfor %}
 		<!-- <div class="col-md-4 grid-product-in">	
 		<div class=" product-grid">	

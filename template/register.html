@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container">
 		<div class="register">
-		<h2>OWNER REGISTER</h2>		
+		<h2 style="text-align: center;font-size: 45px;font-family: caveat;">OWNER REGISTER</h2>		
 		<div class=" register-top">
 			<form action="/register/" method="POST">
 				{% csrf_token %}
@@ -29,6 +29,7 @@
 				<span >Phone</span>
 				<input type="text" name="rPhone">
 			</div>
+			
 				<input type="submit" value="sign up"> 
 			</form>
 		</div>		

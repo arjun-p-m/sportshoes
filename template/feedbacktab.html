@@ -1,0 +1,30 @@
+{% extends 'headerfooter.html' %}
+{% block content %}
+        
+ <div class="container">
+        <div class="register">
+        <h3 style="text-align: center;font-size: 40px;font-family:caveat;">Feedback</h3><br>  
+        <div class=" register-top">
+                <br>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>Feedback</th>
+                        <th>shoe</th>
+                    </tr>
+                </thead>
+                    {% for x in data %}
+                    <tbody>
+                    <tr>
+                        <td>{{x.uid.fname}}</td>
+                        <td>{{x.feedback}}</td>
+                        <td>{{x.proid.name}}</td>
+                    </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

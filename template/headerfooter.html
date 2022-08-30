@@ -59,6 +59,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					{% elif request.session.userid %}
 					    <li ><a href="/useraccount/">My Account   </a> </li>
 					{% else %}
+					<li ><a href="/login/">My Account   </a> </li>
 					{% endif %}
 						<!-- <li>	
 							<select class="in-drop">
@@ -86,7 +87,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</script>
 					<!-- //search-scripts -->
 					<div class="online">
-					<a href="/single/" >SHOP ONLINE</a>
+					<a href="/product/" >SHOP ONLINE</a>
 					</div>
 					<div class="clearfix"> </div>
 			</div>
@@ -95,22 +96,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<a class="toggleMenu" href="#">Menu</a>
 				<ul class="nav">
 					{% if request.session.myid %}
-					<li class="active"><a href="/product/">Products</a></li>
+					<li><a href="/">Home</a></li>
+					<li><a href="/product/">Products</a></li>
 					<li><a href="/addproducts/">Add Products</a></li>
-					<li><a href="/product/">Fitness</a></li>		
-					<li><a href="/product/">Tennis</a>	
-					</li>
-					<li><a href="/product/">Football</a></li>
-					<li><a href="/product/">Golf</a></li>
+					<li><a href="/updateproduct/?pid={{x.id}}">My Product</a></li>		
+					<li><a href="/bookedorders/">Booked Orders</a></li>
+					<li><a href="/feedbacked/">Feedback</a></li>
+					<!-- <li><a href="/product/">Golf</a></li> -->
 					{% elif request.session.userid %}
-					<li class="active"><a href="/product/">Products</a></li>
-					<li><a href="/cart/">my cart</a></li>		
-					<li><a href="/product/">Tennis</a>	
-					</li>
-					<li><a href="/product/">Football</a></li>
-					<li><a href="/product/">Golf</a></li>
+					<li><a href="/">Home</a></li>		
+					<li><a href="/product/">Products</a></li>
+					<li><a href="/cart/">my cart</a></li>
+					<li><a href="/bookingtab/">My Booking</a></li>
+					<!-- <li><a href="/product/">Golf</a></li> -->
 					{% else %}
+					<li><a href="/">Home</a></li>
 					<li class="active"><a href="/product/">Products</a></li>
+					<li><a href="/register/" style="color: white;" class="btn"><span class="fa fa-pencil-square-o"></span>Owner signup</a></li>
+						<li><a href="/user/" style="color: white;" class="btn"><span class="fa fa-pencil-square-o"></span>User signup</a></li>
 					{% endif %}
 				</ul>
 				<script type="text/javascript" src="/static/js/nav.js"></script>
@@ -127,15 +130,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							  <option value="Yen" class="in-of">Community2</option>
 							</select></li>	 -->
 						{% if request.session.myid %}
-						<li><a href="/profile/" style="color: white;" class="btn"><span class="fa fa-user-circle-o" style="font-size:15px;"></span><br><span>{{ request.session.myname }}</span></a></li>
+						<li><a href="/profile/" style="color: white;" class="btn"><span class="fa fa-user-circle-o" style="font-size:15px;"></span><span>{{ request.session.myname }}</span></a></li>
 						<li><a href="/logout/" style="color: white;" class="btn"><span class="fa fa-pencil-square-o"></span>logout</a></li>
 						{% elif request.session.userid %}
-						<li><a href="/profile/" style="color: white;" class="btn"><span class="fa fa-user-circle-o" style="font-size:15px;"></span><br><span>{{ request.session.username }}</span></a></li>
+						<li><a href="/profile/" style="color: white;" class="btn"><span class="fa fa-user-circle-o" style="font-size:15px;"></span><span>{{ request.session.username }}</span></a></li>
 						<li><a href="/logout/" style="color: white;" class="btn"><span class="fa fa-pencil-square-o"></span>logout</a></li>
 						{% else %}
-						<li><a href="/register/" style="color: white;" class="btn"><span class="fa fa-pencil-square-o"></span>Owner signup</a></li>
-						<li><a href="/user/" style="color: white;" class="btn"><span class="fa fa-pencil-square-o"></span>User signup</a></li>
-						<li><a href="/login/" style="color: white;" class="btn"><span class="fa fa-user-circle-o"></span>sign in</a></li>
+						<!-- <li><a href="/register/" style="color: white;" class="btn"><span class="fa fa-pencil-square-o"></span>Owner signup</a></li>
+						<li><a href="/user/" style="color: white;" class="btn"><span class="fa fa-pencil-square-o"></span>User signup</a></li> -->
+						<li><a href="/login/" style="color: white;font-size:15px;" class="btn"><span class="fa fa-user-circle-o"></span>sign in</a></li>
 						{% endif %}
 					</ul>
 			<div class="clearfix"> </div>
@@ -149,7 +152,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <!--footer-->
 	<div class="footer">
-		<div class="col-md-3 footer-left">
+		<div class="col-md-4 footer-left">
 			<h4>Sports</h4>
 			<div class="run-top">
 				<ul class="run-grid">
@@ -168,7 +171,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="clearfix"> </div>
 			</div>
 		</div>
-		<div class="col-md-3 footer-left left-footer">
+		<!-- <div class="col-md-3 footer-left left-footer">
 			<h4>Latest</h4>
 			<div class="run-top top-run">
 				<ul class="run-grid">
@@ -186,13 +189,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</ul>
 			<div class="clearfix"> </div>
 			</div>
-		</div>
-		<div class="col-md-2 footer-left left-footer">
+		</div> -->
+		<div class="col-md-4 footer-left left-footer">
 			<h4>Your Account</h4>
 				<ul class="run-grid-in">
-					<li><a href="/account/">Login</a></li>
-					<li><a href="#">My Sports</a></li>
-					<li><a href="#">My Events</a></li>
+					<li><a href="/login/">Login</a></li>
+					<li><a href="/register/">owner Signup</a></li>
+					<li><a href="/user/">user signup</a></li>
 				</ul>
 		</div>
 		<div class="col-md-4 footer-left left-footer">
@@ -203,11 +206,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<li><a href="#"><i class="twitter"> </i></a></li>
 			</ul>
 			<div class="letter">
-				<h5>NEWSLETTER</h5>
-				<span>in the next article</span>
-				<h6>NRL: five things we learned this weekend</h6>
-				<p>In support of suburban games; Warriors rip</p>
-				<a href="/register/" class="sign">SIGN UP AND GET MORE</a>
+				<h5>Sport Shoes</h5>
+				<span></span>
+				<!-- <h6>NRL: five things we learned this weekend</h6> -->
+				<p><a href="/login/" style="color: white;">Sign in for ordering more different varieties of shoes</a></p>
+
+				<p><a href="/user/" class="sign">If you are not a member SIGN UP AND GET MORE</a></p>
 				<p class="footer-class"> © 2015 Sport All Rights Reserved | Template by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
 			</div>
 			

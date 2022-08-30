@@ -9,9 +9,8 @@ from django.core.mail import send_mail
 import datetime
 # Create your views here.
 def INDEX(request):
-	prd=product_tb.objects.all()[8:11]
+	prd=product_tb.objects.all()[:4]
 	prd1=product_tb.objects.all()
-	
 	return render(request,"index.html",{"data":prd,"data1":prd1})
 
 def SEARCH(request):
@@ -109,8 +108,9 @@ def SINGLE(request):
 			id6=request.GET['pid']
 			prd=product_tb.objects.filter(id=id6)
 			pro=product_tb.objects.filter(status="1")
+			pr=product_tb.objects.filter(status="1")[:3]
 			if prd:
-				return render(request,"single.html",{"data":prd,"data2":pro})
+				return render(request,"single.html",{"data":prd,"data2":pro,"data3":pr})
 			else:
 				return HttpResponseRedirect("/product/")
 		else:
@@ -120,8 +120,9 @@ def SINGLE(request):
 			id6=request.GET['pid']
 			prd=product_tb.objects.filter(id=id6)
 			pro=product_tb.objects.filter(status="1")
+			pr=product_tb.objects.filter(status="1")[:3]
 			if prd:
-				return render(request,"single.html",{"data":prd,"data2":pro})
+				return render(request,"single.html",{"data":prd,"data2":pro,"data3":pr})
 			else:
 				return HttpResponseRedirect("/product/")
 		else:
@@ -138,15 +139,19 @@ def LOGIN(request):
 		user=user_tb.objects.filter(fname=name,password=password)
 		if owner:
 			for x in owner:
+				if request.session.has_key("userid"):
+					del request.session["userid"]
 				request.session["myid"]=x.id
 				request.session["myname"]=x.fname
-				prd=product_tb.objects.all()[8:11]
+				prd=product_tb.objects.all()[:4]
 				return render(request,"index.html",{"data":prd})
 		elif user:
 			for x in user:
+				if request.session.has_key("myid"):
+					del request.session["myid"]
 				request.session["userid"]=x.id
 				request.session["username"]=x.fname
-				prd=product_tb.objects.all()[8:11]
+				prd=product_tb.objects.all()[:4]
 				return render(request,"index.html",{"data":prd})
 		else:
 			return render(request,"login.html",{"msg":"invalid creditionals or not approved"})
@@ -301,8 +306,18 @@ def ADDPRODUCTS(request):
 		return HttpResponseRedirect("/login/")
 
 def PRODUCTTAB(request):
-	product=product_tb.objects.filter(status="1")
-	return render(request,"producttab.html",{"data":product})
+	if request.session.has_key("myid"):
+		ii=request.session["myid"]
+		owner=register_tb.objects.get(id=ii)
+		product=product_tb.objects.filter(status="1",owner=owner)
+		if product:
+			return render(request,"producttab.html",{"data":product})
+		else:
+			return render(request,"producttab.html",{"msg":"not approved"})
+	else:
+		return HttpResponseRedirect("/login/")
+
+	
 
 def EDITPRODUCT(request):
 	if request.method=='GET':
@@ -390,13 +405,27 @@ def signout(request):
 	else:
 		return HttpResponseRedirect("/1/")
 
+def ADMPROFILE(request):
+	if request.session.has_key("admid"):
+		us=request.session["admid"]
+		admin=signin_tb.objects.filter(id=us)
+		return render(request,"backend/profile.html",{"data":admin})
+	else:
+		return HttpResponseRedirect("/1/")
+
 def ADOWNERTAB(request):
-	owner=register_tb.objects.all()
-	return render(request,"backend/adownertab.html",{"data":owner})
+	if request.session.has_key("admid"):
+		owner=register_tb.objects.all()
+		return render(request,"backend/adownertab.html",{"data":owner})
+	else:
+		return HttpResponseRedirect("/signin/")
 
 def ADUSERTAB(request):
-	user=user_tb.objects.all()
-	return render(request,"backend/adusertab.html",{"data":user})
+	if request.session.has_key("admid"):
+		user=user_tb.objects.all()
+		return render(request,"backend/adusertab.html",{"data":user})
+	else:
+		return HttpResponseRedirect("/signin/")
 
 def APPROVED(request):
 	id5=request.GET['uid']
@@ -407,6 +436,13 @@ def REJECTED(request):
 	id6=request.GET['uid']
 	owner=register_tb.objects.filter(id=id6).update(status="2")
 	return HttpResponseRedirect('/adownertab/')
+
+def ADCARTTAB(request):
+	if request.session.has_key("admid"):
+		cart=cart_tb.objects.all()
+		return render(request,"backend/adcarttab.html",{"data":cart})
+	else:
+		return HttpResponseRedirect("/signin/")
 
 # def ADMINADDPRODUCTS(request):
 # 	if request.method=="POST":
@@ -420,18 +456,21 @@ def REJECTED(request):
 # 		return render(request,"backend/adminaddproducts.html")
 
 def ADMINPROTAB(request):
-	product=product_tb.objects.all()
-	return render(request,"backend/adminaddprotab.html",{"data":product})
+	if request.session.has_key("admid"):
+		product=product_tb.objects.all()
+		return render(request,"backend/adminaddprotab.html",{"data":product})
+	else:
+		return HttpResponseRedirect("/signin/")
 
 def PROAPPROVED(request):
 	id7=request.GET['pid']
 	admin=product_tb.objects.filter(id=id7).update(status="1")
-	return HttpResponseRedirect('/adminaddprotab/')
+	return HttpResponseRedirect('/adminprotab/')
 
 def PROREJECTED(request):
 	id8=request.GET['pid']
 	admin=product_tb.objects.filter(id=id8).update(status="2")
-	return HttpResponseRedirect('/adminaddprotab/')
+	return HttpResponseRedirect('/adminprotab/')
 
 def ADDCART(request):
 	if request.session.has_key("userid"):
@@ -481,9 +520,16 @@ def CART(request):
 		cart=cart_tb.objects.filter(user=ii,status="pending")
 		myprd=cart_tb.objects.all().filter(user=ii,status="pending")
 		grandtotal=0
-		for x in myprd:
-			grandtotal=int(x.totalprice)+grandtotal
-		return render(request,'cart.html',{'gt':grandtotal,"data":myprd})
+		if myprd:
+			for x in myprd:
+				grandtotal=int(x.totalprice)+grandtotal
+			return render(request,'cart.html',{'gt':grandtotal,"data":myprd})
+		else:
+			# mypr=cart_tb.objects.all().filter(user=ii,status="payed")
+			# grandtotal=0
+			# for x in mypr:
+			# 	grandtotal=float(x.totalprice)+grandtotal
+			return render(request,'cart.html',{'gt':grandtotal,"data":myprd})
 	else:
 		return HttpResponseRedirect("/login/")
 
@@ -492,10 +538,23 @@ def REMOVE(request):
 	cart_tb.objects.filter(id=cid).delete()
 	return HttpResponseRedirect("/cart/")
 
+def CHECKOUT(request):
+	if request.session.has_key("userid"):
+		cid=request.GET['id']
+		ii=request.session["userid"]
+		cart=product_tb.objects.filter(id=cid,status="1")
+		myprd=product_tb.objects.all().filter(id=cid,status="1")
+		grandtotal=0
+		for x in myprd:
+			grandtotal=float(x.price)
+		return render(request,'checkout.html',{'gt':grandtotal,"data1":myprd})
+	else:
+		return HttpResponseRedirect("/login/")
+
 def REMOVEALL(request):
 	if request.session.has_key("userid"):
 		ii=request.session["userid"]
-		cart_tb.objects.filter(uid=ii,status="pending").delete()
+		cart_tb.objects.filter(user=ii,status="pending").delete()
 		return HttpResponseRedirect("/cart/")
 	else:
 		return HttpResponseRedirect("/cart/")
@@ -518,23 +577,91 @@ def PAYMENT(request):
 				payment=payment_tb(nameoncard=nameoncard,username=uname,date=date,cartid=cid,grandtotal=grandtotal,status="payed")
 				payment.save()
 				cart_tb.objects.all().filter(user=uid,status="pending").update(status="payed")
-			return HttpResponseRedirect("/cart/")
+			return HttpResponseRedirect("/bookingtab/")
 		else:
 			grandtotal=request.GET['gt']
 			return render(request,"payment/index.html",{'gt':grandtotal})
 	else:
 		return HttpResponseRedirect("/login/")
 
+def PROPAYMENT(request):
+	if request.session.has_key("userid"):
+		if request.method=="POST":
+			nameoncard=request.POST['pcName']
+			uid=request.session['userid']
+			uname=user_tb.objects.get(id=uid)
+			date=datetime.datetime.now()
+			mypr=cart_tb.objects.all().filter(user=uid,status="pending")
+			for x in mypr:
+				cartid=x.id
+				pid=x.pid
+				cid=cart_tb.objects.get(id=cartid)
+			grandtotal=request.POST['total']
+			payment=payment_tb(nameoncard=nameoncard,username=uname,date=date,cartid=cid,grandtotal=grandtotal,status="payed")
+			payment.save()
+			cart_tb.objects.all().filter(pid=x.pid,user=uid,status="pending").update(status="payed")
+			return HttpResponseRedirect("/cart/")
+		else:
+			grandtotal=request.GET['gd']
+			return render(request,"payment/propayment.html",{'gd':grandtotal})
+	else:
+		return HttpResponseRedirect("/login/")
+
+
 def BOOKEDORDERS(request):
 	if request.session.has_key("myid"):
 		ii=request.session["myid"]
-		myprd=cart_tb.objects.all().filter(owner=ii,status="confirmed")
+		myprd=cart_tb.objects.all().filter(owner=ii,status="payed")
 		if myprd:
 			for x in myprd:
 				owner=x.owner
-				user=x.name
+				user=x.user
 				return render(request,'bookedorder.html',{"data":myprd})
 		else:
 			return render(request,"bookedorder.html")
+	else:
+		return HttpResponseRedirect("/login/")
+
+def BOOKING(request):
+	if request.session.has_key("userid"):
+		ii=request.session["userid"]
+		# cart=cart_tb.objects.filter(name=ii,status="pending")
+		myprd=cart_tb.objects.all().filter(user=ii,status="payed")
+		grandtotal=0
+		if myprd:
+			for x in myprd:
+				grandtotal=float(x.totalprice)+grandtotal
+			return render(request,'bookingtab.html',{'gt':grandtotal,"data":myprd})
+		else:
+			return render(request,'bookingtab.html',{'gt':grandtotal,"data":myprd})
+	else:
+		return HttpResponseRedirect("/login/")
+
+def FEEDBACK(request):
+	if request.session.has_key("userid"):
+		id21=request.GET['pid']
+		print(id21,"************")
+		pro=product_tb.objects.get(id=id21)
+		print(pro,"************")
+		prod=product_tb.objects.all().filter(id=id21)
+		for x in prod:
+			ownerid=x.owner
+		if request.method=="POST":
+			ii=request.session["userid"]
+			uid=user_tb.objects.get(id=ii)
+			feedback=request.POST["rFeedback"]
+			feed=feedback_tb(uid=uid,proid=pro,owner=ownerid,feedback=feedback)
+			feed.save()
+			return render(request,"feedback.html")
+		else:
+			return render(request,"feedback.html",{"pid":id21})
+	else:
+		return HttpResponseRedirect("/login/")
+
+def FEEDBACKED(request):
+	if request.session.has_key("myid"):
+		ii=request.session["myid"]
+		feedb=feedback_tb.objects.all().filter(owner=ii)
+		return render(request,"feedbacktab.html",{"data":feedb})
 	else:
 		return HttpResponseRedirect("/login/")

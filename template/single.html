@@ -3,11 +3,14 @@
 <div class="container">
 <div class="single">
 				<div class="col-md-9 top-in-single">
+					{% if request.session.userid %}
+					<h2 style="text-align: center;font-size: 45px;font-family: caveat;">Single Page</h2>
+					<br>
 					{% for x in data %}
 					<form action="/addcart/?id={{x.id}}" method="POST">
 						{% csrf_token %}
 					<div class="col-md-5 single-top">	
-						<ul id="etalage">
+						<ul id="etalage" style="list-style-type: none;">
 							<!-- <li>
 								<a href="optionallink.html">
 									<img class="etalage_thumb_image img-responsive" src="/static/images/si1.jpg" alt="" >
@@ -16,7 +19,7 @@
 							</li> -->
 							<li>
 								<img class="etalage_thumb_image img-responsive" src="{{x.image.url}}" alt="" >
-								<img class="etalage_source_image img-responsive" src="{{x.image.url}}" alt="" >
+								<!-- <img class="etalage_source_image img-responsive" src="{{x.image.url}}" alt="" > -->
 							</li>
 							<!-- <li>
 								<img class="etalage_thumb_image img-responsive" src="/static/images/si.jpg" alt=""  >
@@ -27,16 +30,16 @@
 								<img class="etalage_source_image img-responsive" src="/static/images/s4.jpg" alt="" >
 							</li> -->
 						</ul>
-						<div>
+						<!-- <div style="list-style-type: none;">
 							<li>{{x.name}}</li>
 							<li><label class="money"><span><del>&#8377;2999</del></span>&#8377; {{x.price}}</span></label></li>
-						</div>
+						</div> -->
 
 					</div>	
 					
 					<div class="col-md-7 single-top-in">
 						<div class="single-para">
-							<h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit</h4>
+							<!-- <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit</h4>
 							<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
 							<div class="star">
 								<ul>
@@ -51,15 +54,15 @@
 									<a href="#">  Write a review</a>
 								</div>
 							<div class="clearfix"> </div>
-							</div>
+							</div> -->
 							
-								<!-- <label  class="add-to">$32.8</label> -->
+								<label  class="add-to">{{x.name}}</label>
 							<label class="money"><span><del>&#8377;2999</del></span><span>&#8377; {{x.price}}</span></label>
 							<div class="available">
 								<h6>Available Options :</h6>
 								<ul>
 									
-								<li>quantity:<select id="qty" name="qty">
+								<li style="font-family:caveat;font-size: 15px;">quantity:<select id="qty" name="qty">
 									<option>1</option>
 									<option>2</option>
 									<option>3</option>
@@ -74,17 +77,25 @@
 							</ul>
 						</div>
 							
-								<button type="submit">Add to cart</button>
-							
+								<button type="submit">Add to cart</button><br>
+								<br>
+							<!-- <a class="shop" style="color:#fff;padding: 7px 20px;background: #d2232a;" href="/cart/?id={{x.id}}">Place Order</a> -->
+							<!-- <div class="rem-for-agile">
+								<a href="/checkout/?id={{x.id}}" style="color:#fff;padding: 7px 20px;background: #d2232a;">Buy Now</a><br>
+							</div> -->
 						</div>
 						{% endfor %}
+						{% endif %}
 					</div>
 				</form>
 				<div class="clearfix"> </div>
+				<br><br>
 				<div class="product-top">
+					<h2 style="text-align: center;font-size: 40px;font-family: caveat;">Products You May Like</h2>
+					<br>
 					{% for x in data2 %}
 				<div class="col-md-4 grid-product-in">
-				<div class=" product-grid">
+				<div class=" product-grid" style="font-family: caveat;">
 					<a href="/single/?pid={{x.id}}" class="lot"><img class="img-responsive " src="{{x.image.url}}" alt=""></a>
 					<div class="shoe">
 						<p>{{x.name}}</p>
@@ -92,7 +103,7 @@
 						<a href="/product/">find a store</a>
 					</div>
 					<div class="clearfix"> </div>
-					<b class="plus-in">+</b>
+					<!-- <b class="plus-in">+</b> -->
 				</div>
 			    </div>
 				{% endfor %}
@@ -137,7 +148,7 @@
 	</div>
 				</div>
 				<div class="col-md-3">
-					<div class="single-bottom">
+					<!-- <div class="single-bottom">
 						<h4>Brands</h4>
 						<ul>
 						<li>
@@ -161,8 +172,8 @@
 							<label for="brand4"><span></span>Injected humour</label>
 						</li>
 						</ul>
-					</div>
-					<div class="single-bottom">
+					</div> -->
+					<!-- <div class="single-bottom">
 						<h4>Colors</h4>
 						<ul>
 						<li>
@@ -186,18 +197,20 @@
 							<label for="color4"><span></span>Green</label>
 						</li>
 						</ul>
-					</div>
+					</div> -->
 					<div class="single-bottom">
-						<h4>Product Categories</h4>
+						<h4 style="font-family: caveat;">Shoes</h4>
+						{% for x in data3 %}
 							<div class="product-go">
-								<img class="img-responsive fashion" src="/static/images/sh.png" alt="">
+								<img class="img-responsive fashion" src="{{x.image.url}}" alt="">
 							<div class="grid-product">
-								<a href="#" class="elit">Consectetuer adipiscing elit</a>
-								<span class=" price-in"><small>$500.00</small> $400.00</span>
+								<p><a href="/single/?pid={{x.id}}" class="elit">{{x.name}}</a></p>
+								<span class="money"><span><del>&#8377;2999</del></span>&#8377; {{x.price}}</span>
 							</div>
 							<div class="clearfix"> </div>
 							</div>
-							<div class="product-go">
+							{% endfor %}
+							<!-- <div class="product-go">
 								<img class="img-responsive fashion" src="/static/images/sh1.png" alt="">
 							<div class="grid-product">
 								<a href="#" class="elit">Consectetuer adipiscing elit</a>
@@ -212,7 +225,7 @@
 								<span class=" price-in"><small>$500.00</small> $400.00</span>
 							</div>
 							<div class="clearfix"> </div>
-							</div>
+							</div> -->
 				</div>
 				</div>
 				<div class="clearfix"> </div>		

@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container">
 		<div class="register">
-		<h2>UPDATE PRODUCTS</h2>		
+		<h2 style="text-align: center;font-size: 45px;font-family: caveat;">UPDATE PRODUCTS</h2>		
 		<div class=" register-top">
 			{% for x in data %}
 			<form action="/updateproduct/?pid={{x.id}}" method="POST" enctype="multipart/form-data">

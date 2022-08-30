@@ -1,0 +1,34 @@
+{% extends 'headerfooter.html' %}
+{% block content %}
+<div class="container">
+		<div class="register">
+		<h2 style="text-align: center;font-size: 40px;font-family:caveat;">Booked Orders</h2><br>		
+		<div class=" register-top">
+			<table class="table">
+				<tr>
+					<th>name</th>
+					<th>image</th>
+					<th>price</th>
+					<th>totalprice</th>
+					<th>user</th>
+					<th>status</th>
+					<th>quantity</th>
+					<th>date</th>
+				</tr>
+				{% for x in data %}
+				<tr>
+					<td>{{x.pid.name}}</td>
+					<td><img src="{{x.pid.image.url}}" width="100" height="100"></td>
+					<td>{{x.price}}</td>
+					<td>{{x.totalprice}}</td>
+					<td>{{x.user.fname}}</td>
+					<td>{{x.status}}</td>
+					<td>{{x.quantity}}</td>
+					<td>{{x.date}}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>		
+	</div>
+	</div>
+{% endblock %}

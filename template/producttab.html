@@ -2,7 +2,10 @@
 {% block content %}
 <div class="container">
 		<div class="register">
-		<h2> PRODUCTS</h2>		
+		<h2 style="text-align: center;font-size: 40px;font-family:caveat;"> My Products</h2>
+		<br>	
+		<h3>{{msg}}</h3>
+		<br>	
 		<div class=" register-top">
 			<table class="table">
 				<tr>
@@ -11,6 +14,7 @@
 					<th>image</th>
 				</tr>
 				{% for x in data %}
+				<tbody>
 				<tr>
 					<td>{{x.name}}</td>
 					<td>{{x.price}}</td>
@@ -19,6 +23,7 @@
 					<td><a href="/deleteproduct/?pid={{x.id}}"><span class="fa fa-trash"></span></a></td>
 				</tr>
 				{% endfor %}
+				</tbody>
 			</table>
 		</div>		
 	</div>

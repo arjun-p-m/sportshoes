@@ -192,6 +192,58 @@ select.in-drop {
   float: left;
     
 }
+/*--checkout--*/
+.check {
+    padding: 3em 0;
+}
+a.continue,a.order {
+    background: #100b0b;
+    padding: 10px 20px;
+    font-size: 20px;
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 2em;
+    font-family: 'Pathway Gothic One';
+    text-transform: uppercase;
+}
+a.continue:hover, a.order:hover{
+    background: #fa5400;
+    transition: 0.5s all;
+}
+a.order{
+    margin: 15px 0;
+}
+.price-details h3 {
+    color: #100b0b;
+    font-size: 25px;
+    margin-bottom: 1em;
+    font-family: 'Pathway Gothic One';
+}
+.price-details span {
+    width: 50%;
+    float: left;
+    font-size: 15px;
+    color:#aaa;
+    line-height: 1.8em;
+}
+ul.total_price {
+    list-style-type: none;
+}
+ul.total_price li.last_price {
+    width: 50%;
+    float: left;
+}
+li.last_price h4 {
+    color: #655858;
+    margin-top: 5px;
+}
+li.last_price span {
+    font-size: 20px;
+    color: #655858;
+}
 /* start h_menu */
 .toggleMenu {
     display: none;

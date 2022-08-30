@@ -37,17 +37,27 @@ urlpatterns = [
    path('deleteproduct/',views.DELETEPRODUCT),
    path('1/',views.INDEX1),
    path('signin/',views.SIGNIN),
+   path('signout/',views.signout),
+   path('admprofile/',views.ADMPROFILE),
    path('adownertab/',views.ADOWNERTAB),
    path('adusertab/',views.ADUSERTAB),
    path('approved/',views.APPROVED),
    path('rejected/',views.REJECTED),
+   path('adcarttab/',views.ADCARTTAB),
    # path('adminaddproducts/',views.ADMINADDPRODUCTS),
-   path('adminaddprotab/',views.ADMINPROTAB),
+   path('adminprotab/',views.ADMINPROTAB),
    path('proapproved/',views.PROAPPROVED),
    path('prorejected/',views.PROREJECTED),
    path('2/',views.INDEX2),
    path('payment/',views.PAYMENT),
-   path('bookedorders/',views.BOOKEDORDERS)
+   path('propayment/',views.PROPAYMENT),
+   path('bookingtab/',views.BOOKING),
+   path('bookedorders/',views.BOOKEDORDERS),
+   # path('bookingorders/',views.BOOKINGORDERS),
+   path('checkout/',views.CHECKOUT),
+   path('feedback/',views.FEEDBACK),
+   path('feedbacked/',views.FEEDBACKED),
+
 
 
 ]

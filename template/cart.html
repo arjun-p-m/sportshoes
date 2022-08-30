@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container">
 		<div class="register">
-		<h2>ADDPRODUCTS</h2>		
+		<h2 style="font-size: 40px;font-family:caveat;">my cart</h2><br>	
 		<div class=" register-top">
 			<table class="table">
 				<tr>
@@ -10,32 +10,34 @@
 					<th>image</th>
 					<th>price</th>
 					<th>totalprice</th>
-					<!-- <th>status</th> -->
+					<th>status</th>
 					<th>quantity</th>
 					<th>date</th>
 				</tr>
 				{% for x in data %}
+				<tbody>
 				<tr>
 					<td>{{x.pid.name}}</td>
 					<td><img src="{{x.pid.image.url}}" width="100" height="100"></td>
 					<td>{{x.price}}</td>
 					<td>{{x.totalprice}}</td>
-					<!-- <td>{{x.status}}</td> -->
+					<td>{{x.status}}</td>
 					<td>{{x.quantity}}</td>
 					<td>{{x.date}}</td>
 					<td><a href="/remove/?id={{x.id}}"><span class="fa fa-trash"></span></a></td>
-					<td><button type="submit" value="payment" onclick="location.href='/payment/?gt={{x.totalprice}}'">payment</button></td>
+					<td><button type="submit" value="payment" onclick="location.href='/propayment/?gd={{x.totalprice}}'">payment</button></td>
 				</tr>
 				{% endfor %}
 				<tr>
-					<td colspan="7"><button type="submit" value="payment" onclick="location.href='/payment/?gt={{gt}}'">payment</button></td>
+					<td colspan="9"><button type="submit" value="payment" onclick="location.href='/payment/?gt={{gt}}'">payment</button></td>
 				</tr>
 				<tr>
-					<td colspan="6" style="text-align: left;"><a href="/removeall/?id={{x.id}}">remove all<i class="fa fa-trash"></i></a></td>
+					<td colspan="9" style="text-align: left;"><a href="/removeall/?id={{x.id}}">remove all<i class="fa fa-trash"></i></a></td>
 				</tr>
 				<tr>
-					<td colspan="6" style="text-align: right;">Total:{{gt}}</td>
+					<td colspan="9" style="text-align: right;">Total:{{gt}}</td>
 				</tr>
+				</tbody>
 			</table>
 		</div>		
 	</div>

@@ -1,0 +1,45 @@
+{% extends 'headerfooter.html' %}
+{% block content %}
+        
+ <div class="container">
+		<div class="register">
+		<h3 style="text-align: center;font-size: 40px;font-family:caveat;">my booking</h3><br>	
+		<div class=" register-top">
+				<!-- <h3 style="text-align: center;font-size: 35px;font-family:caveat;">Bookings</h3> -->
+				<h2>{{msgkey}}</h2>
+				<!-- <p style="color: #404040;">Welcome, My Bookings.</p> -->
+				<br>
+				<!-- <p>If you have previously registered with us, <a href="#">click here</a></p> -->
+				<table class="table">
+					<!-- <thead> -->
+					<tr>
+						<th>name</th>
+						<th>image</th>
+						<th>totalprice</th>
+						<th>status</th>
+						<th>owner</th>
+						<th>quantity</th>
+						<!-- <th>booking hours</th> -->
+						<!-- <th>timing</th> -->
+
+					</tr>
+					<!-- </thead> -->
+					{% for x in data %}
+					<tbody>
+					<tr>
+						<td>{{x.pid.name}}</td>
+						<td><img src="{{x.pid.image.url}}" width="100" height="100"></td>
+						<td>{{x.totalprice}}</td>
+						<td>{{x.status}}</td>
+						<td>{{x.owner.fname}}</td>
+						 <td>{{x.quantity}}</td>
+						<!--<td>{{x.btiming}}</td> -->
+						<!-- <td></td> -->
+					</tr>
+					</tbody>
+					{% endfor %}
+				</table>
+			</div>		
+	</div>
+	</div>
+{% endblock %}

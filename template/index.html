@@ -3,11 +3,11 @@
 	<div class="banner">
 	<div class="container">
 		<div class="banner-matter">
-			<h1>Get active get running<span>push your limits</h1>
+			<h1 style="font-size: 45px;font-family:caveat;">Get active get running<span>push your limits</h1>
 				<h2 style="color: white;">{{msg}}</h2>
 			<div class="out">
-				<a href="/product/" class="find">FIND OUT MORE </a>
-				<a href="/product/" class="shop">SHOP</a>
+				<a href="/product/" class="find" style="font-family: caveat;">FIND OUT MORE </a>
+				<a href="/product/" class="shop" style="font-family: caveat;">SHOP</a>
 				<div class="clearfix"> </div>
 			</div>
 		</div>	
@@ -146,18 +146,43 @@
 		</div>
 	</div>
 		<!--//sreen-gallery-cursual---->
-	<div class="content-grids">
+	<div class="content-grids" style="background-color:transparent;">
 		{% for x in data %}
-		<div class="col-md-4 content-grid">
+		<div class="col-md-3 content-grid">
+		{% if request.session.userid %}
 		<a href="/single/?pid={{x.id}}" class="lot"><img class="img-responsive " src="{{x.image.url}}" alt=""></a>
 		<div class="shoe">
 			<p>{{x.name}}</p>
 			<span class="money"><span><del>&#8377;2999</del></span>&#8377; {{x.price}}</span>
 			<a href="/product/">find a store</a>
 		</div>
+		<div class="shoe-in" style="float: right;margin: 25px 25px;">
+				<a href="/feedback/?pid={{x.id}}" style="color:#fff;padding: 7px 20px;background: #d2232a;">Feedback</a><br>
+			</div>
 		<div class="clearfix"> </div>
-		<b class="plus-in">+</b>
+		<!-- <b class="plus-in">+</b> -->
 	</div>
+		{% elif request.session.myid %}
+		<img class="img-responsive " src="{{x.image.url}}" alt="">
+		<div class="shoe">
+			<p>{{x.name}}</p>
+			<span class="money"><span><del>&#8377;2999</del></span>&#8377; {{x.price}}</span>
+			<a href="/product/">find a store</a>
+		</div>
+		<div class="clearfix"> </div>
+		<!-- <b class="plus-in">+</b> -->
+	</div>
+		{% else %}
+		<img class="img-responsive " src="{{x.image.url}}" alt="">
+		<div class="shoe">
+			<p>{{x.name}}</p>
+			<span class="money"><span><del>&#8377;2999</del></span>&#8377; {{x.price}}</span>
+			<a href="/product/">find a store</a>
+		</div>
+		<div class="clearfix"> </div>
+		<!-- <b class="plus-in">+</b> -->
+	</div>
+	{% endif %}
 	{% endfor %}
 <!-- 	<div class="col-md-4 content-grid">
 		<a href="/product/" class="lot"><img class="img-responsive " src="/static/images/sh.png" alt=""></a>
@@ -195,7 +220,7 @@
 	<div class="clearfix"> </div>
 	</div>
 	<!---->
-	<div class="content-top">
+	<!-- <div class="content-top">
 		<div class="col-md-4 top-content">
 			<a href="/product/"><img class="img-responsive " src="/static/images/pi.jpg" alt=""></a>
 		</div>
@@ -207,7 +232,7 @@
 		</div>
 		
 		<div class="clearfix"> </div>
-	</div>
+	</div> -->
 	<div class="content-bottom">
 		<div class="col-md-8 bottom-content">
 			<script src="/static/js/responsiveslides.min.js"></script>
@@ -241,50 +266,41 @@
 					  </div>
 					  <div class="london">
 						<h5>London Marathon 2013</h5>
-						<p>24/2013 - 6Mins</p>
+						<p>24/2013 - 6Mins</p><br>
+						<br>
+						<h5>Running -</h5>
+						<p><i>“This is the truth. The clock doesn’t stop until you force it to.  That is the elegant beauty of track.  It is the simplest, and hardest, of sports.  Hear a gun go off, and run fast.  That’s the simple part.  The hard part is, run faster than anybody else out there.  This is the truth.  The clock will run until somebody makes it stop.  It might as well be you, don’t you think?”</i></p>
+					  </div>
+					  <div class="shoes">
+					  	
 					  </div>
 					</div>
-
 		</div>
 		<div class="col-md-4 bottom-grid">
-		<h4>Latest Sport News</h4>
+		<h4> Sport Quotes</h4>
 			<div class="news">
-				<span>25/07</span>
-				<p>Sporting wonders have come so thick and fast since last summer that we decided it... time </p>
+				<span>Football</span>
+				<p><i>"Life is like a soccer. You need goals. If there are no goals in your life then you can't win"</i></p>
 				<div class="foot">
-					<label>football</label>
-					<ul class="eye ">
-						<li><span><i> </i>315</span></li>
-						<li><a href="#"><i class="comment"> </i> 3</a></li>
-					</ul>
-					<div class="clearfix"> </div>
 				</div>
 			</div>
 			<div class="news">
-				<span>25/07</span>
-				<p>Sporting wonders have come so thick and fast since last summer that we decided it... time </p>
+				<span>Cricket</span>
+				<p><i>"Life is simply a cricket match, with temptation as the bowler"</i></p>
 				<div class="foot">
-					<label>football</label>
-					<ul class="eye ">
-						<li><span><i> </i>315</span></li>
-						<li><a href="#"><i class="comment"> </i> 3</a></li>
-					</ul>
-					<div class="clearfix"> </div>
 				</div>
 			</div>
 			<div class="news">	
-				<span>25/07</span>
-				<p>Sporting wonders have come so thick and fast since last summer that we decided it... time </p>
+				<span>Basketball</span>
+				<p><i>"Basketball isn't a sport. It's an art, one that must be mastered to succeed"</i></p>
 				<div class="foot">
-					<label>football</label>
-					<ul class="eye ">
-						<li><span><i> </i>315</span></li>
-						<li><a href="#"><i class="comment"> </i> 3</a></li>
-					</ul>
-					<div class="clearfix"> </div>
 				</div>
 			</div>
-			<a href="#" class="view">view all articles</a>
+			<div class="news">	
+				<span>Hockey</span>
+				<p><i>"Hockey goals are attained not by strength but by perseverance"</i></p>
+				<div></div>
+			</div>
 		</div>
 	<div class="clearfix"> </div>
 	</div>

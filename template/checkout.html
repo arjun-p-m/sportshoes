@@ -1,0 +1,33 @@
+{% extends 'headerfooter.html' %}
+{% block content %}
+        <!-- check-out -->
+        <h2 style="font-size: 45px;font-family:caveat;text-align: center;"> Checkout </h2>
+            <div class="check">
+                <div class="container">	 
+                    {% for x in data %}
+                    <div class="col-md-6 cart-total">
+                        <a class="continue" href="/cart/">Continue to basket</a>
+                        <div class="price-details">
+                            <h3>Price Details</h3>
+                            <span>Total</span>
+                            <span class="total1">{{x.price}}</span>
+                            <!-- <span>Discount</span> -->
+<!--                             <span class="total1">10%(Festival Offer)</span> -->
+                            <span>Name</span>
+                            <span class="total1">{{x.name}}</span>
+                            <div class="clearfix"></div>				 
+                        </div>
+                        <hr class="featurette-divider">
+                        <ul class="total_price">
+                           <li class="last_price"> <h4>TOTAL</h4></li>	
+                           <li class="last_price"><span>{{x.price}}</span></li>
+                           <div class="clearfix"> </div>
+                        </ul> 
+                        <div class="clearfix"></div>
+                        <a class="order" href="/payment/?gt={{gt}}">Place Order</a>
+                    </div>
+                    <div class="clearfix"> </div>
+                    {% endfor %}
+                </div>
+            </div>
+{% endblock %}
